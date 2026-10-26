@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   gunluk-kontrol:
@@ -21,9 +21,9 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Günlük kontrol
-        run: |
-          echo "KPSS Radar günlük kontrolü başladı."
-          date -u
-          echo "Sonraki adımda resmî ilan taraması eklenecek."
-          
+      - name: Gerekli kütüphaneleri kur
+        run: pip install -r backend/requirements.txt
+
+      - name: İlanları tara
+        run: python backend/scanner.py
+        
