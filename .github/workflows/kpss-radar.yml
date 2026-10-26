@@ -1,0 +1,29 @@
+
+name: KPSS Radar Günlük Kontrol
+
+on:
+  schedule:
+    - cron: "0 14 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  gunluk-kontrol:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu indir
+        uses: actions/checkout@v4
+
+      - name: Python kur
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Günlük kontrol
+        run: |
+          echo "KPSS Radar günlük kontrolü başladı."
+          date -u
+          echo "Sonraki adımda resmî ilan taraması eklenecek."
+          
