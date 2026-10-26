@@ -1,0 +1,10 @@
+{
+  "name": "KPSS Radar",
+  "short_name": "KPSS Radar",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
+  "description": "KPSS Ortaöğretim KPSSP94 ilan ve haber takip paneli",
+  "icons": []
+}
