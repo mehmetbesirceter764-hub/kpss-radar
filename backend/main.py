@@ -1,8 +1,9 @@
 
 from fastapi import FastAPI
 from datetime import datetime, timezone
+from scanner import scan
 
-app = FastAPI(title="KPSS Radar API", version="0.1.0")
+app = FastAPI(title="KPSS Radar API", version="0.2.0")
 
 @app.get("/api/health")
 def health():
@@ -14,9 +15,5 @@ def health():
 
 @app.get("/api/report")
 def report():
-    return {
-        "generated_at": datetime.now(timezone.utc).isoformat(),
-        "status": "starter_not_connected",
-        "items": []
-    }
-  
+    return scan()
+    
