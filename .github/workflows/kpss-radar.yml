@@ -12,6 +12,7 @@ permissions:
 jobs:
   gunluk-kontrol:
     runs-on: ubuntu-latest
+
     steps:
       - name: Depoyu indir
         uses: actions/checkout@v4
@@ -25,15 +26,15 @@ jobs:
         run: pip install -r backend/requirements.txt
 
       - name: İlanları tara ve raporu kaydet
-        run: |
-          set -o pipefail
-          python backend/scanner.py | tee report.json
+        run: python backend/scanner.py | tee report.json
 
       - name: Raporu depoya kaydet
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add report.json
-          git commit -m "Günlük KPSS Radar raporu" || echo "Yeni rapor değişikliği yok"
-          git push
+          git diff --cached --quiet || (
+            git commit -m "Günlük KPSS Radar raporu" &&
+            git push
+          )
           
