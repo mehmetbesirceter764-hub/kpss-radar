@@ -12,9 +12,42 @@ SOURCES = [
 ]
 
 KEYWORDS = [
-    "kpss", "ortaöğretim", "lise mezunu",
-    "personel alımı", "sözleşmeli personel",
-    "memur alımı", "işçi alımı",
+    # Eğitim düzeyi ve KPSS
+    "kpss",
+    "kpss p94",
+    "ortaöğretim",
+    "lise mezunu",
+
+    # Memur ve sözleşmeli personel
+    "memur alımı",
+    "memur alımları",
+    "personel alımı",
+    "personel alımları",
+    "kamu personeli",
+    "sözleşmeli personel",
+    "destek personeli",
+
+    # Kamu işçisi
+    "kamu işçisi",
+    "işçi alımı",
+    "sürekli işçi",
+    "temizlik görevlisi",
+    "şoför alımı",
+
+    # Askerî personel
+    "uzman erbaş",
+    "sözleşmeli er",
+    "askerî personel",
+    "askeri personel",
+    "jandarma alımı",
+
+    # Polis ve güvenlik
+    "polis alımı",
+    "bekçi alımı",
+    "koruma ve güvenlik",
+    "güvenlik görevlisi",
+    "zabıta alımı",
+    "itfaiye eri",
 ]
 
 def scan():
