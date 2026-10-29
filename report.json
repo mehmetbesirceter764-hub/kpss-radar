@@ -1,41 +1,46 @@
 {
-  "generated_at": "2026-10-28T14:42:46.160280+00:00",
+  "generated_at": "2026-10-29T14:45:00.175236+00:00",
   "status": "ok",
   "items": [
     {
       "source": "ÖSYM duyuruları",
-      "title": "KPSS",
-      "url": "https://www.osym.gov.tr/SinavGrubu/Index/3"
+      "title": "KPSS : Kamu Personel Seçme Sınavı | T.C. Ölçme, Seçme ve Yerleştirme Merkezi Başkanlığı",
+      "url": "https://www.osym.gov.tr/SinavGrubu/Index/3",
+      "education_match": "possible",
+      "kpss_mentioned": true,
+      "dates_found": [],
+      "verification": "manual_review_required",
+      "snippet": "KPSS : Kamu Personel Seçme Sınavı | T.C. Ölçme, Seçme ve Yerleştirme Merkezi Başkanlığı KPSS : Kamu Personel Seçme Sınavı Yıl: 2026 2026 2025 2024 2023 2022 2021 2020 2019 2018 2017 2016 2015 2014 2013 2012 2011 2010 Ara: ✕ 25 Ekim 2026 2026-KPSS Ortaöğretim Sınavı: Temel Soru Kitapçığı ve Cevap Anahtarı Yayımlandı 25 Ekim 2026 2026-KPSS Ortaöğretim Sınavı Temel Soru Kitapçığı ve Cevap Anahtarı (%10) 22 Ekim 2026 2026-KPSS Ortaöğretim Sınavı İçin Sınav Günü Açık Tutulacak İl/İlçe Nüfus Müdürlükl"
     },
     {
       "source": "ÖSYM duyuruları",
-      "title": "Engelli Kamu Personeli Seçme Sınavı",
-      "url": "https://www.osym.gov.tr/SinavGrubu/Index/4"
+      "title": "EKPSS : Engelli Kamu Personeli Seçme Sınavı | T.C. Ölçme, Seçme ve Yerleştirme Merkezi Başkanlığı",
+      "url": "https://www.osym.gov.tr/SinavGrubu/Index/4",
+      "education_match": "not_confirmed",
+      "kpss_mentioned": true,
+      "dates_found": [],
+      "verification": "manual_review_required",
+      "snippet": "EKPSS : Engelli Kamu Personeli Seçme Sınavı | T.C. Ölçme, Seçme ve Yerleştirme Merkezi Başkanlığı EKPSS : Engelli Kamu Personeli Seçme Sınavı Yıl: 2026 2026 2025 2024 2023 2022 2021 2020 2019 2018 2017 2016 2015 2014 2013 2012 2011 2010 Ara: ✕ 14 Mayıs 2026 2026-EKPSS: Cevap Kâğıtları ve Aday Cevapları Erişime Açıldı 12 Mayıs 2026 2026-EKPSS: Sınav Sonuçları Açıklandı 28 Nisan 2026 2026-Engelli Kamu Personeli Seçme Sınavı (EKPSS) Kura Başvuru Kılavuzu ve Başvuru Bilgileri 27 Nisan 2026 2026-EKPS"
     },
     {
       "source": "ÖSYM duyuruları",
-      "title": "2026-KPSS Ortaöğretim Sınavı: Temel Soru Kitapçığı ve Cevap Anahtarı Yayımlandı",
-      "url": "https://www.osym.gov.tr/2026-kpss-ortaogretim-sinavi-temel-soru-kitapcigi-ve-cevap-anahtari-yayimlandi"
+      "title": "2026-KPSS Ortaöğretim Sınavı: Temel Soru Kitapçığı ve Cevap Anahtarı Yayımlandı | T.C. Ölçme, Seçme ve Yerleştirme Merkezi Başkanlığı",
+      "url": "https://www.osym.gov.tr/2026-kpss-ortaogretim-sinavi-temel-soru-kitapcigi-ve-cevap-anahtari-yayimlandi",
+      "education_match": "possible",
+      "kpss_mentioned": true,
+      "dates_found": [],
+      "verification": "manual_review_required",
+      "snippet": "2026-KPSS Ortaöğretim Sınavı: Temel Soru Kitapçığı ve Cevap Anahtarı Yayımlandı | T.C. Ölçme, Seçme ve Yerleştirme Merkezi Başkanlığı 2026-KPSS Ortaöğretim Sınavı: Temel Soru Kitapçığı ve Cevap Anahtarı Yayımlandı DUYURU (25 Ekim 2026) 2026-KPSS Ortaöğretim Sınavı: Temel Soru Kitapçığı ve Cevap Anahtarı Yayımlandı 25 Ekim 2026 tarihinde uygulanan 2026-KPSS Ortaöğretim sınavının (2026-KPSS Ortaöğretim) Temel Soru Kitapçığı ile Cevap Anahtarı’nın %10’u aşağıdaki bağlantıda erişime açılmıştır. Sına"
     },
     {
       "source": "ÖSYM duyuruları",
-      "title": "2026-KPSS Ortaöğretim Sınavı İçin Sınav Günü Açık Tutulacak İl/İlçe Nüfus Müdürlükleri",
-      "url": "https://www.osym.gov.tr/2026-kpss-ortaogretim-sinavi-icin-sinav-gunu-acik-tutulacak-ililce-nufus-mudurlukleri"
-    },
-    {
-      "source": "ÖSYM duyuruları",
-      "title": "2026-KPSS Lisans Başvuru Kılavuzu",
-      "url": "https://dokuman.osym.gov.tr/web//2026/9/2026-kpss-lisans-basvuru-kilavuzu-6v7v57-22101148.pdf"
-    },
-    {
-      "source": "ÖSYM duyuruları",
-      "title": "2026-KPSS Ön Lisans Başvuru Kılavuzu",
-      "url": "https://dokuman.osym.gov.tr/web//2026/9/2026-kpss-on-lisans-basvuru-kilavuzu-l21r5f-22101148.pdf"
-    },
-    {
-      "source": "ÖSYM duyuruları",
-      "title": "2026-KPSS Ortaöğretim Başvuru Kılavuzu",
-      "url": "https://dokuman.osym.gov.tr/web//2026/9/2026-kpss-ortaogretim-basvuru-kilavuzu-0k8595-22101148.pdf"
+      "title": "2026-KPSS Ortaöğretim Sınavı İçin Sınav Günü Açık Tutulacak İl/İlçe Nüfus Müdürlükleri | T.C. Ölçme, Seçme ve Yerleştirme Merkezi Başkanlığı",
+      "url": "https://www.osym.gov.tr/2026-kpss-ortaogretim-sinavi-icin-sinav-gunu-acik-tutulacak-ililce-nufus-mudurlukleri",
+      "education_match": "possible",
+      "kpss_mentioned": true,
+      "dates_found": [],
+      "verification": "manual_review_required",
+      "snippet": "2026-KPSS Ortaöğretim Sınavı İçin Sınav Günü Açık Tutulacak İl/İlçe Nüfus Müdürlükleri | T.C. Ölçme, Seçme ve Yerleştirme Merkezi Başkanlığı 2026-KPSS Ortaöğretim Sınavı İçin Sınav Günü Açık Tutulacak İl/İlçe Nüfus Müdürlükleri DUYURU (22 Ekim 2026) 2026-KPSS Ortaöğretim Sınavı İçin Sınav Günü Açık Tutulacak İl/İlçe Nüfus Müdürlükleri 25 Ekim 2026 tarihinde uygulanacak 2026-KPSS Ortaöğretim Sınavı’na girecek adaylardan; T.C. Kimlik Kartı’nı kaybeden, T.C. Kimlik Kartı’nda fotoğrafı bulunmayan, n"
     }
   ],
   "errors": []
