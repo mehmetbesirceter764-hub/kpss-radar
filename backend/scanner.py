@@ -1,8 +1,7 @@
 
 import re
-import json
 from datetime import datetime, timezone
-from urllib.parse import urljoin, urldefrag, urlparse
+from urllib.parse import urljoin, urlparse, urldefrag
 
 import requests
 from bs4 import BeautifulSoup
@@ -14,25 +13,29 @@ SOURCES = [
 
 KEYWORDS = [
     "kpss", "ortaöğretim", "lise mezunu",
-    "memur alımı", "personel alımı", "personel alımları",
+    "memur alımı", "personel alımı",
     "sözleşmeli personel", "destek personeli",
     "kamu işçisi", "işçi alımı", "sürekli işçi",
     "temizlik görevlisi", "şoför alımı",
     "uzman erbaş", "sözleşmeli er",
     "askerî personel", "askeri personel",
-    "jandarma alımı", "polis alımı", "bekçi alımı",
-    "koruma ve güvenlik", "güvenlik görevlisi",
+    "jandarma alımı", "polis alımı",
+    "bekçi alımı", "güvenlik görevlisi",
     "zabıta alımı", "itfaiye eri",
 ]
 
-DATE_PATTERN = re.compile(
-    r"\b\d{1,2}[./-]\d{1,2}[./-]\d{4}\b"
-)
+DATE_RE = re.compile(r"\b\d{1,2}[./-]\d{1,2}[./-]\d{4}\b")
+
+DEADLINE_CONTEXT = [
+    "son başvuru",
+    "başvuruların son günü",
+    "başvuru bitiş",
+    "başvurular ... tarihinde sona",
+    "başvurular ... tarihine kadar",
+]
 
 HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (compatible; KPSS-Radar/1.0)"
-    )
+    "User-Agent": "Mozilla/5.0 (compatible; KPSS-Radar/1.0)"
 }
 
 TIMEOUT = 20
@@ -47,21 +50,56 @@ def get_page(session, url):
     response = session.get(
         url,
         timeout=TIMEOUT,
-        headers=HEADERS,
+        headers=HEADERS
     )
     response.raise_for_status()
     return BeautifulSoup(response.text, "html.parser")
 
 
-def extract_dates(text):
-    return list(dict.fromkeys(DATE_PATTERN.findall(text)))
+def extract_deadline(text):
+    normalized = normalize(text)
+
+    # Başvuru tarihine yakın ifadeleri ara.
+    patterns = [
+        r"son başvuru(?: tarihi)?[:\s]*(\d{1,2}[./-]\d{1,2}[./-]\d{4})",
+        r"başvurular(?:ın)?\s+(?:son günü|bitiş tarihi)[:\s]*(\d{1,2}[./-]\d{1,2}[./-]\d{4})",
+        r"başvurular\s+(\d{1,2}[./-]\d{1,2}[./-]\d{4})\s+tarihinde sona",
+        r"başvurular\s+(\d{1,2}[./-]\d{1,2}[./-]\d{4})\s+tarihine kadar",
+    ]
+
+    for pattern in patterns:
+        match = re.search(pattern, normalized)
+        if match:
+            return match.group(1)
+
+    return None
+
+
+def determine_status(deadline):
+    if not deadline:
+        return "unknown"
+
+    try:
+        parsed = datetime.strptime(
+            deadline.replace("-", ".").replace("/", "."),
+            "%d.%m.%Y"
+        ).date()
+
+        today = datetime.now(timezone.utc).date()
+
+        return "open" if parsed >= today else "closed"
+
+    except ValueError:
+        return "unknown"
 
 
 def scan():
     items = []
     errors = []
     seen_urls = set()
+
     session = requests.Session()
+    checked_at = datetime.now(timezone.utc).isoformat()
 
     for source_name, source_url in SOURCES:
         try:
@@ -72,6 +110,7 @@ def scan():
                 title = " ".join(
                     link.get_text(" ", strip=True).split()
                 )
+
                 target = urldefrag(
                     urljoin(source_url, link["href"])
                 ).url
@@ -89,7 +128,6 @@ def scan():
                 if any(word in searchable for word in KEYWORDS):
                     candidates.append((title, target))
 
-            # Ana sayfada bulunan aday bağlantıları incele.
             for title, target in candidates[:MAX_DETAIL_PAGES]:
                 if target in seen_urls:
                     continue
@@ -108,41 +146,42 @@ def scan():
                         detail.title.get_text(" ", strip=True)
                         if detail.title else title
                     )
-                    body = detail.get_text(" ", strip=True)
-                    body = " ".join(body.split())
-                    searchable_body = normalize(
-                        page_title + " " + body
+
+                    body = " ".join(
+                        detail.get_text(" ", strip=True).split()
                     )
 
-                    if not any(
-                        word in searchable_body
-                        for word in KEYWORDS
-                    ):
+                    searchable = normalize(page_title + " " + body)
+
+                    if not any(word in searchable for word in KEYWORDS):
                         continue
 
                     has_high_school = any(
-                        phrase in searchable_body
-                        for phrase in (
+                        phrase in searchable
+                        for phrase in [
                             "ortaöğretim",
                             "lise mezunu",
                             "lise ve dengi",
                             "orta öğretim",
-                        )
+                        ]
                     )
 
-                    has_kpss = "kpss" in searchable_body
-                    dates = extract_dates(body)
+                    has_kpss = "kpss" in searchable
+
+                    deadline = extract_deadline(body)
 
                     items.append({
                         "source": source_name,
+                        "source_url": target,
                         "title": page_title or title,
-                        "url": target,
                         "education_match": (
                             "possible" if has_high_school
                             else "not_confirmed"
                         ),
                         "kpss_mentioned": has_kpss,
-                        "dates_found": dates,
+                        "application_deadline": deadline,
+                        "application_status": determine_status(deadline),
+                        "last_checked": checked_at,
                         "verification": "manual_review_required",
                         "snippet": body[:500],
                     })
@@ -161,17 +200,19 @@ def scan():
             })
 
     return {
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": checked_at,
         "status": (
             "ok" if not errors
             else "partial" if items
             else "error"
         ),
+        "total_items": len(items),
         "items": items,
         "errors": errors,
     }
 
 
 if __name__ == "__main__":
+    import json
     print(json.dumps(scan(), ensure_ascii=False, indent=2))
-    
+                    
