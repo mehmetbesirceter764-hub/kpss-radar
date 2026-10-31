@@ -1,15 +1,42 @@
 {
-  "generated_at": "2026-10-31T17:00:00+03:00",
-  "status": "diagnostic_test",
+  "generated_at": "2026-10-31T14:26:58.575621+00:00",
+  "status": "ok",
   "summary": {
     "total_items": 0,
     "sources_checked": 2,
-    "links_discovered": 0,
-    "pages_checked": 0,
-    "rejected_pages": 0
+    "links_discovered": 7,
+    "pages_checked": 7,
+    "rejected_pages": 7
   },
-  "counters": {},
-  "source_stats": [],
+  "counters": {
+    "sources_checked": 2,
+    "links_discovered": 7,
+    "pages_checked": 7,
+    "rejected_pages": 7,
+    "rejection_reasons": {
+      "recruitment_term_not_found": 7
+    }
+  },
+  "source_stats": [
+    {
+      "source": "ÖSYM duyuruları",
+      "source_url": "https://www.osym.gov.tr/",
+      "source_accessed": true,
+      "links_discovered": 7,
+      "pages_checked": 7,
+      "items_found": 0,
+      "error": null
+    },
+    {
+      "source": "Kariyer Kapısı",
+      "source_url": "https://kariyerkapisi.gov.tr/isealim",
+      "source_accessed": true,
+      "links_discovered": 0,
+      "pages_checked": 0,
+      "items_found": 0,
+      "error": null
+    }
+  ],
   "total_items": 0,
   "items": [],
   "errors": []
