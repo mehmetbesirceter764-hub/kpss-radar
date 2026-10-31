@@ -7,9 +7,9 @@ import requests
 from bs4 import BeautifulSoup
 
 
-# --------------------------------------------------
+# ==================================================
 # KAYNAKLAR
-# --------------------------------------------------
+# ==================================================
 
 SOURCES = [
     ("ÖSYM duyuruları", "https://www.osym.gov.tr/"),
@@ -17,38 +17,95 @@ SOURCES = [
 ]
 
 
-# --------------------------------------------------
-# PERSONEL ALIMI ANAHTAR KELİMELERİ
-# --------------------------------------------------
+# ==================================================
+# İLAN KEŞİF KELİMELERİ
+# ==================================================
 
-RECRUITMENT_TERMS = [
-    "personel alımı",
-    "personel alımları",
-    "memur alımı",
-    "memur alımları",
-    "sözleşmeli personel alımı",
-    "sözleşmeli personel",
-    "kamu işçisi alımı",
-    "işçi alımı",
-    "sürekli işçi alımı",
-    "uzman erbaş alımı",
-    "sözleşmeli er alımı",
-    "polis alımı",
-    "bekçi alımı",
-    "jandarma alımı",
-    "güvenlik görevlisi alımı",
-    "zabıta alımı",
-    "itfaiye eri alımı",
-    "personel istihdamı",
-    "boş kadro",
-    "kadrolu personel",
-    "destek personeli alımı",
+DISCOVERY_TERMS = [
+    "duyuru",
+    "ilan",
+    "alım",
+    "alim",
+    "başvuru",
+    "basvuru",
+    "personel",
+    "memur",
+    "işçi",
+    "isci",
+    "istihdam",
+    "kadro",
+    "sözleşmeli",
+    "sozlesmeli",
+    "uzman erbaş",
+    "polis",
+    "bekçi",
+    "jandarma",
+    "güvenlik",
+    "zabıta",
+    "itfaiye",
 ]
 
 
-# --------------------------------------------------
-# EĞİTİM VE KPSS KONTROLÜ
-# --------------------------------------------------
+# ==================================================
+# PERSONEL ALIMI KONTROLÜ
+# ==================================================
+
+RECRUITMENT_TERMS = [
+    "personel alımı",
+    "personel alim",
+    "personel alımları",
+    "memur alımı",
+    "memur alim",
+    "sözleşmeli personel",
+    "sozlesmeli personel",
+    "kamu işçisi",
+    "kamu iscisi",
+    "işçi alımı",
+    "isci alimi",
+    "sürekli işçi",
+    "uzman erbaş",
+    "sözleşmeli er",
+    "polis alımı",
+    "bekçi alımı",
+    "jandarma alımı",
+    "güvenlik görevlisi",
+    "zabıta alımı",
+    "itfaiye eri",
+    "destek personeli",
+    "personel istihdamı",
+    "personel istihdami",
+    "boş kadro",
+    "bos kadro",
+    "kadroya alım",
+    "kadroya alim",
+    "işe alım",
+    "ise alim",
+]
+
+
+# ==================================================
+# SINAV DUYURUSU KONTROLÜ
+# ==================================================
+
+EXAM_TERMS = [
+    "sınav sonuçları açıklandı",
+    "sinav sonuclari aciklandi",
+    "cevap kağıtları",
+    "cevap kagitlari",
+    "soru kitapçığı",
+    "soru kitapcigi",
+    "sınav başvuruları",
+    "sinav basvurulari",
+    "sınav tarihi",
+    "sinav tarihi",
+    "sınava giriş belgesi",
+    "sinava giris belgesi",
+]
+
+
+# ==================================================
+# EĞİTİM VE KPSS ŞARTLARI
+# ==================================================
 
 EDUCATION_TERMS = [
     "ortaöğretim",
@@ -57,48 +114,61 @@ EDUCATION_TERMS = [
     "lise ve dengi",
     "lise veya dengi",
     "ortaöğretim mezunu",
+    "en az lise",
+    "lise düzeyinde",
 ]
 
 KPSS_TERMS = [
     "kpss",
     "kpss p94",
-    "2024-kpss",
-    "2026-kpss",
     "p94 puan",
     "ortaöğretim kpss",
+    "2024-kpss",
+    "2026-kpss",
 ]
 
 
-# --------------------------------------------------
-# TARİH KONTROLÜ
-# --------------------------------------------------
+# ==================================================
+# BAŞVURU TARİHLERİ
+# ==================================================
 
 DATE_PATTERNS = [
     r"son başvuru(?: tarihi)?[:\s]*(\d{1,2}[./-]\d{1,2}[./-]\d{4})",
+    r"son başvuru tarihi[:\s]*(\d{1,2}\s+\w+\s+\d{4})",
     r"başvurular(?:ın)?\s+(?:son günü|bitiş tarihi)[:\s]*(\d{1,2}[./-]\d{1,2}[./-]\d{4})",
     r"başvurular\s+(\d{1,2}[./-]\d{1,2}[./-]\d{4})\s+tarihinde sona",
     r"başvurular\s+(\d{1,2}[./-]\d{1,2}[./-]\d{4})\s+tarihine kadar",
 ]
 
 
-# --------------------------------------------------
+# ==================================================
 # AYARLAR
-# --------------------------------------------------
+# ==================================================
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; KPSS-Radar/1.0)"
 }
 
 TIMEOUT = 20
-MAX_DETAIL_PAGES = 25
+
+# Her kaynakta incelenecek bağlantı sınırı
+MAX_DETAIL_PAGES = 60
+
+# Aynı alan adı dışına çıkma
+SAME_DOMAIN_ONLY = True
 
 
-# --------------------------------------------------
+# ==================================================
 # YARDIMCI FONKSİYONLAR
-# --------------------------------------------------
+# ==================================================
 
 def normalize(text):
-    return " ".join(text.casefold().split())
+    text = text.casefold()
+    return " ".join(text.split())
+
+
+def contains_any(text, terms):
+    return any(term in text for term in terms)
 
 
 def get_page(session, url):
@@ -107,6 +177,7 @@ def get_page(session, url):
         timeout=TIMEOUT,
         headers=HEADERS
     )
+
     response.raise_for_status()
 
     return BeautifulSoup(
@@ -115,11 +186,30 @@ def get_page(session, url):
     )
 
 
+def extract_text(soup):
+    for tag in soup.find_all([
+        "script",
+        "style",
+        "nav",
+        "footer",
+        "header",
+        "noscript"
+    ]):
+        tag.decompose()
+
+    return " ".join(
+        soup.get_text(" ", strip=True).split()
+    )
+
+
 def extract_deadline(text):
     normalized = normalize(text)
 
     for pattern in DATE_PATTERNS:
-        match = re.search(pattern, normalized)
+        match = re.search(
+            pattern,
+            normalized
+        )
 
         if match:
             return match.group(1)
@@ -139,25 +229,66 @@ def determine_status(deadline):
 
         today = datetime.now().date()
 
-        if parsed >= today:
-            return "open"
-
-        return "closed"
+        return (
+            "open"
+            if parsed >= today
+            else "closed"
+        )
 
     except ValueError:
         return "unknown"
 
 
-def contains_any(text, terms):
-    return any(
-        term in text
-        for term in terms
-    )
+def classify_education(text):
+    if contains_any(text, EDUCATION_TERMS):
+        return "possible"
+
+    return "not_confirmed"
 
 
-# --------------------------------------------------
-# ANA TARAMA SİSTEMİ
-# --------------------------------------------------
+def discover_links(soup, source_url):
+    candidates = {}
+
+    source_domain = urlparse(source_url).netloc
+
+    for link in soup.find_all("a", href=True):
+
+        title = " ".join(
+            link.get_text(" ", strip=True).split()
+        )
+
+        target = urldefrag(
+            urljoin(source_url, link["href"])
+        ).url
+
+        parsed = urlparse(target)
+
+        if not title:
+            continue
+
+        if parsed.scheme not in ("http", "https"):
+            continue
+
+        if SAME_DOMAIN_ONLY:
+            if parsed.netloc != source_domain:
+                continue
+
+        searchable = normalize(
+            title + " " + target
+        )
+
+        if contains_any(
+            searchable,
+            DISCOVERY_TERMS
+        ):
+            candidates[target] = title
+
+    return candidates
+
+
+# ==================================================
+# ANA TARAMA
+# ==================================================
 
 def scan():
 
@@ -174,68 +305,18 @@ def scan():
     for source_name, source_url in SOURCES:
 
         try:
-            soup = get_page(
+            source_page = get_page(
                 session,
                 source_url
             )
 
-            candidates = []
-
-            for link in soup.find_all(
-                "a",
-                href=True
-            ):
-
-                title = " ".join(
-                    link.get_text(
-                        " ",
-                        strip=True
-                    ).split()
-                )
-
-                target = urldefrag(
-                    urljoin(
-                        source_url,
-                        link["href"]
-                    )
-                ).url
-
-                parsed = urlparse(target)
-
-                if not title:
-                    continue
-
-                if parsed.scheme not in (
-                    "http",
-                    "https"
-                ):
-                    continue
-
-                if parsed.netloc != urlparse(
-                    source_url
-                ).netloc:
-                    continue
-
-                searchable = normalize(
-                    title + " " + target
-                )
-
-                if contains_any(
-                    searchable,
-                    RECRUITMENT_TERMS
-                ):
-                    candidates.append(
-                        (title, target)
-                    )
-
-            # Aynı bağlantıları temizle
-            unique_candidates = {}
-
-            for title, target in candidates:
-                unique_candidates[target] = title
+            candidates = discover_links(
+                source_page,
+                source_url
+            )
 
             for target, title in list(
-                unique_candidates.items()
+                candidates.items()
             )[:MAX_DETAIL_PAGES]:
 
                 if target in seen_urls:
@@ -249,16 +330,7 @@ def scan():
                         target
                     )
 
-                    for tag in detail.find_all(
-                        [
-                            "script",
-                            "style",
-                            "nav",
-                            "footer",
-                            "header"
-                        ]
-                    ):
-                        tag.decompose()
+                    body = extract_text(detail)
 
                     page_title = (
                         detail.title.get_text(
@@ -269,18 +341,11 @@ def scan():
                         else title
                     )
 
-                    body = " ".join(
-                        detail.get_text(
-                            " ",
-                            strip=True
-                        ).split()
-                    )
-
                     searchable = normalize(
                         page_title + " " + body
                     )
 
-                    # Personel alımı değilse geç
+                    # Personel alımı kontrolü
                     has_recruitment = contains_any(
                         searchable,
                         RECRUITMENT_TERMS
@@ -289,28 +354,29 @@ def scan():
                     if not has_recruitment:
                         continue
 
-                    # Eğitim şartı
-                    has_high_school = contains_any(
+                    # Sınav duyurusu kontrolü
+                    is_exam_announcement = contains_any(
                         searchable,
-                        EDUCATION_TERMS
+                        EXAM_TERMS
                     )
 
-                    # KPSS şartı
+                    if is_exam_announcement:
+                        continue
+
+                    # Eğitim ve KPSS kontrolü
+                    education_match = classify_education(
+                        searchable
+                    )
+
                     has_kpss = contains_any(
                         searchable,
                         KPSS_TERMS
                     )
 
-                    # Başvuru bitiş tarihi
+                    # Başvuru tarihi
                     deadline = extract_deadline(
                         body
                     )
-
-                    # Eğitim uygunluğu
-                    if has_high_school:
-                        education_match = "possible"
-                    else:
-                        education_match = "not_confirmed"
 
                     items.append({
                         "source": source_name,
@@ -325,7 +391,7 @@ def scan():
                         ),
                         "last_checked": checked_at,
                         "verification": "manual_review_required",
-                        "snippet": body[:500],
+                        "snippet": body[:700],
                     })
 
                 except Exception as exc:
@@ -366,9 +432,9 @@ def scan():
     }
 
 
-# --------------------------------------------------
-# TEST
-# --------------------------------------------------
+# ==================================================
+# TEST VE RAPOR
+# ==================================================
 
 if __name__ == "__main__":
 
@@ -382,5 +448,5 @@ if __name__ == "__main__":
             ensure_ascii=False,
             indent=2
         )
-                        )
+            )
     
