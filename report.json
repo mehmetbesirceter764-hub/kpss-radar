@@ -1,6 +1,15 @@
 {
-  "generated_at": "2026-10-31T12:44:03.019917+00:00",
-  "status": "ok",
+  "generated_at": "2026-10-31T17:00:00+03:00",
+  "status": "diagnostic_test",
+  "summary": {
+    "total_items": 0,
+    "sources_checked": 2,
+    "links_discovered": 0,
+    "pages_checked": 0,
+    "rejected_pages": 0
+  },
+  "counters": {},
+  "source_stats": [],
   "total_items": 0,
   "items": [],
   "errors": []
