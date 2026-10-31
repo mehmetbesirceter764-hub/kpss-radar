@@ -23,7 +23,27 @@ KEYWORDS = [
     "bekçi alımı", "güvenlik görevlisi",
     "zabıta alımı", "itfaiye eri",
 ]
-
+RECRUITMENT_TERMS = [
+    "personel alımı",
+    "personel alımları",
+    "memur alımı",
+    "memur alımları",
+    "sözleşmeli personel alımı",
+    "kamu işçisi alımı",
+    "işçi alımı",
+    "sürekli işçi alımı",
+    "uzman erbaş alımı",
+    "sözleşmeli er alımı",
+    "polis alımı",
+    "bekçi alımı",
+    "jandarma alımı",
+    "güvenlik görevlisi alımı",
+    "zabıta alımı",
+    "itfaiye eri alımı",
+    "personel istihdamı",
+    "boş kadro",
+    "kadrolu personel",
+]
 DATE_RE = re.compile(r"\b\d{1,2}[./-]\d{1,2}[./-]\d{4}\b")
 
 DEADLINE_CONTEXT = [
