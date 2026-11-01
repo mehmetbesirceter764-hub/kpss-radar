@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-10-31T14:26:58.575621+00:00",
+  "generated_at": "2026-11-01T14:27:49.978172+00:00",
   "status": "ok",
   "summary": {
     "total_items": 0,
     "sources_checked": 2,
-    "links_discovered": 7,
-    "pages_checked": 7,
-    "rejected_pages": 7
+    "links_discovered": 5,
+    "pages_checked": 5,
+    "rejected_pages": 5
   },
   "counters": {
     "sources_checked": 2,
-    "links_discovered": 7,
-    "pages_checked": 7,
-    "rejected_pages": 7,
+    "links_discovered": 5,
+    "pages_checked": 5,
+    "rejected_pages": 5,
     "rejection_reasons": {
-      "recruitment_term_not_found": 7
+      "recruitment_term_not_found": 5
     }
   },
   "source_stats": [
@@ -22,8 +22,8 @@
       "source": "ÖSYM duyuruları",
       "source_url": "https://www.osym.gov.tr/",
       "source_accessed": true,
-      "links_discovered": 7,
-      "pages_checked": 7,
+      "links_discovered": 5,
+      "pages_checked": 5,
       "items_found": 0,
       "error": null
     },
