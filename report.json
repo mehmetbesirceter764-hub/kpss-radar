@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-16T16:04:20.466504+00:00",
-  "status": "partial",
+  "generated_at": "2026-11-17T14:48:45.857801+00:00",
+  "status": "ok",
   "summary": {
     "total_items": 0,
     "sources_checked": 2,
@@ -30,20 +30,14 @@
     {
       "source": "Kariyer Kapısı",
       "source_url": "https://kariyerkapisi.gov.tr/isealim",
-      "source_accessed": false,
+      "source_accessed": true,
       "links_discovered": 0,
       "pages_checked": 0,
       "items_found": 0,
-      "error": "HTTPSConnectionPool(host='kariyerkapisi.gov.tr', port=443): Max retries exceeded with url: /isealim (Caused by NameResolutionError(\"HTTPSConnection(host='kariyerkapisi.gov.tr', port=443): Failed to resolve 'kariyerkapisi.gov.tr' ([Errno -5] No address associated with hostname)\"))"
+      "error": null
     }
   ],
   "total_items": 0,
   "items": [],
-  "errors": [
-    {
-      "source": "Kariyer Kapısı",
-      "url": "https://kariyerkapisi.gov.tr/isealim",
-      "error": "HTTPSConnectionPool(host='kariyerkapisi.gov.tr', port=443): Max retries exceeded with url: /isealim (Caused by NameResolutionError(\"HTTPSConnection(host='kariyerkapisi.gov.tr', port=443): Failed to resolve 'kariyerkapisi.gov.tr' ([Errno -5] No address associated with hostname)\"))"
-    }
-  ]
+  "errors": []
 }
